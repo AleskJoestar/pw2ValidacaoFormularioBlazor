@@ -11,7 +11,7 @@ namespace AulaApp1.Components.Models
 
         [Range(0, 100000, ErrorMessage = "A quantidade deve estar entre 0 e 100.000.")]
         public int Quantidade { get; set; }
-○
+
         public static ValidationResult? ValidarNomeDiferenteDeTeste(string? valor, ValidationContext context)
         {
             if (!string.IsNullOrEmpty(valor) && valor.Equals("Teste", StringComparison.OrdinalIgnoreCase))
