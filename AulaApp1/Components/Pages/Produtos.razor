@@ -1,0 +1,74 @@
+﻿@page "/produtos"
+@using AulaApp1.Components.Models
+
+<h3>Produtos</h3>
+<div class="row">
+    <div class="col-md-4">
+       <div class="card card-body">
+          <EditForm Model="@produto" OnValidSubmit="AdicionarProduto">
+              <DataAnnotationsValidator />
+
+              <div class="mb-3">
+                  <label class="form-label">Nome</label>
+                  <InputText class="form-control" @bind-Value="produto.Nome" />
+                  <ValidationMessage For="@(() => produto.Nome)" class="text-danger small" />
+              </div>
+
+              <div class="mb-3">
+                  <label class="form-label">Preço</label>
+                  <InputNumber class="form-control" @bind-Value="produto.Preco" />
+                  <ValidationMessage For="@(() => produto.Preco)" class="text-danger small" />
+              </div>
+
+              <div class="mb-3">
+                  <label class="form-label">Quantidade</label>
+                  <InputNumber class="form-control" @bind-Value="produto.Quantidade" />
+                  <ValidationMessage For="@(() => produto.Quantidade)" class="text-danger small" />
+              </div>
+
+              <button class="btn btn-primary" type="submit">Adicionar produto</button>
+          </EditForm>
+       </div>
+    </div>
+    <div class="col-md-8">
+       <table class="table table-striped">
+          <thead>
+             <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+             </tr>
+          </thead>
+          <tbody>
+             @if (produtos.Count == 0)
+             {
+                <tr>
+                   <td colspan="3" class="text-muted">Nenhum produto cadastrado</td>
+                </tr>
+             }
+             else
+             {
+                @foreach (var p in produtos)
+                {
+                   <tr>
+                      <td>@p.Nome</td>
+                      <td>R$ @p.Preco</td>
+                      <td>@p.Quantidade un.</td>
+                   </tr>
+                }
+             }
+          </tbody>
+       </table>
+    </div>
+</div>
+
+@code {
+    private Produto produto = new();
+    private List<Produto> produtos = new();
+
+    private void AdicionarProduto()
+    {
+       produtos.Add(produto);
+       produto = new(); 
+    }
+}

@@ -1,0 +1,66 @@
+﻿@page "/categorias"
+@using AulaApp1.Components.Models
+
+<h3>Categorias</h3>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-body">
+            <EditForm Model="@categoria" OnValidSubmit="AdicionarCategoria">
+                <DataAnnotationsValidator />
+
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <InputText class="form-control" @bind-Value="categoria.Nome" />
+                    <ValidationMessage For="@(() => categoria.Nome)" class="text-danger small" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Quantidade</label>
+                    <InputNumber class="form-control" @bind-Value="categoria.Quantidade" />
+                    <ValidationMessage For="@(() => categoria.Quantidade)" class="text-danger small" />
+                </div>
+
+                <button class="btn btn-primary" type="submit">Adicionar categoria</button>
+            </EditForm>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (categorias.Count == 0)
+            {
+                <tr>
+                    <td colspan="2" class="text-muted">Nenhuma categoria cadastrada</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var c in categorias)
+                {
+                    <tr>
+                        <td>@c.Nome</td>
+                        <td>@c.Quantidade un.</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private Categoria categoria = new();
+    private List<Categoria> categorias = new();
+
+    private void AdicionarCategoria()
+    {
+        categorias.Add(categoria);
+        categoria = new();
+    }
+}
